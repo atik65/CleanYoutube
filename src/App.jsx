@@ -17,9 +17,9 @@ const App = () => {
     addPlaylist,
   } = useContext(PlaylistContext);
 
-  useEffect(() => {
-    addPlaylist(demoPlayListID);
-  }, []);
+  // useEffect(() => {
+  //   addPlaylist(demoPlayListID);
+  // }, []);
 
   console.log(getFromLocalStorage("playlists"));
 
