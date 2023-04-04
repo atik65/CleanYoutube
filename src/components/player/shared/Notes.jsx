@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { PlaylistContext } from "../../../context/PlaylistContext";
+import { Box } from "@mui/material";
 
 const Notes = ({ videoId }) => {
   const { addNote, getNote } = useContext(PlaylistContext);
@@ -12,7 +13,14 @@ const Notes = ({ videoId }) => {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        mb: {
+          xs: "5rem",
+          md: "0",
+        },
+      }}
+    >
       <h2>Notes</h2>
       <p> {getNote(videoId)} </p>
       <form onSubmit={handleSubmit}>
@@ -24,7 +32,7 @@ const Notes = ({ videoId }) => {
         />
         <button type="submit">Add Note</button>
       </form>
-    </div>
+    </Box>
   );
 };
 
