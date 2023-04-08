@@ -19,21 +19,10 @@ const usePlayList = () => {
     if (!getFromLocalStorage("playlists")) addPlaylist(demoPlayListID);
   }, []);
 
-  const addPlaylist = async (playlistURL, refresh = false) => {
+  const addPlaylist = async (playlistId, force = false) => {
     //TODO: have to add refresh feature (need new data when user want to refresh forcefully )
 
-    let playlistId;
-
-    if (playlistURL.includes("list=")) {
-      playlistId = playlistURL.split("list=")[1];
-    } else if (playlistURL.length == 34) {
-      playlistId = playlistURL;
-    } else {
-      alert("Invalid URL");
-      return;
-    }
-
-    if (state[playlistId] && !refresh) {
+    if (state[playlistId] && !force) {
       return;
     }
 

@@ -41,7 +41,7 @@ const App = () => {
           mt: "1rem",
         }}
       >
-        <Paper
+        {/* <Paper
           component="form"
           onSubmit={(e) => handleSearch(e)}
           sx={{
@@ -67,7 +67,7 @@ const App = () => {
           <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
             <AddTask />
           </IconButton>
-        </Paper>
+        </Paper> */}
 
         {/* <Button> add</Button> */}
         {/* <input

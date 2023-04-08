@@ -1,20 +1,20 @@
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Box,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import AddPlaylistDialog from "../addPlaylist-dialog/AddPlaylistDialog";
 
 const Navbar = () => {
-  const [value, setValue] = React.useState(-1);
-
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <Box
@@ -23,14 +23,10 @@ const Navbar = () => {
           backgroundColor: "#e0f2fe",
           py: {
             xs: "0.9rem",
-            sm: "0rem",
+            sm: "0.9rem",
           },
           width: "100%",
 
-          // display: {
-          //   xs: "none",
-          //   sm: "grid",
-          // },
           alignItems: "center",
         }}
       >
@@ -42,25 +38,30 @@ const Navbar = () => {
             container
           >
             <Grid item xs={12} sm={2} md={2}>
-              <Typography
+              <Box
                 sx={{
-                  backgroundColor: "#0c4a6e",
-                  height: "2rem",
+                  // backgroundColor: "#0c4a6e",
+                  backgroundColor: "#7bc4ee46",
+
                   borderRadius: "3px",
                   display: "grid",
                   placeItems: "center",
                   fontWeight: "bold",
-                  color: "#f3f4f6",
+                  // color: "#f3f4f6",
+                  color: "#2b2217",
                   cursor: "pointer",
+                  py: "0.2rem",
                 }}
                 onClick={() => navigate("/")}
               >
                 Clean YouTube
-              </Typography>
+                <Typography variant="body2"> Atik Hasan</Typography>
+              </Box>
             </Grid>
 
             <Grid
               sx={{
+                justifyContent: "flex-end",
                 display: {
                   xs: "none",
                   sm: "grid",
@@ -71,24 +72,11 @@ const Navbar = () => {
               sm={10}
               md={10}
             >
-              <BottomNavigation
-                // showLabels
-                sx={{
-                  backgroundColor: "#e0f2fe",
+              <Button onClick={handleClickOpen} variant="contained">
+                Add Playlist
+              </Button>
 
-                  justifyContent: "flex-end",
-                }}
-                value={value}
-                onChange={(_, newValue) => {
-                  setValue(newValue);
-                }}
-              >
-                <BottomNavigationAction
-                  onClick={() => navigate("/")}
-                  label="Home"
-                  icon={<HomeOutlinedIcon />}
-                />
-              </BottomNavigation>
+              <AddPlaylistDialog open={open} handleClose={handleClose} />
             </Grid>
           </Grid>
         </Container>
