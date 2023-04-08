@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useState } from "react";
 import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
+import AddPlaylistDialog from "./addPlaylist-dialog/AddPlaylistDialog";
 
 const BottomNavbar = () => {
   const [value, setValue] = useState(-1);
@@ -45,10 +46,12 @@ const BottomNavbar = () => {
           icon={<HomeOutlinedIcon />}
         />
         <BottomNavigationAction
+          onClick={handleClickOpen}
           label="Add Playlist"
           icon={<PlaylistAddRoundedIcon />}
         />
       </BottomNavigation>
+      <AddPlaylistDialog open={open} handleClose={handleClose} />
     </Box>
   );
 };
