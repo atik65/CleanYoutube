@@ -22,8 +22,8 @@ const BottomNavbar = () => {
   return (
     <Box
       sx={{
-        // marginTop: "0.5rem",
-        paddingTop: "5rem",
+        marginTop: "0.5rem",
+        // paddingTop: "5rem",
         position: "fixed",
         bottom: "0",
         left: "0",
