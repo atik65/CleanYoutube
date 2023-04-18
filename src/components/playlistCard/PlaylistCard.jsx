@@ -24,13 +24,11 @@ const PlaylistCard = ({
     addFavoritePlaylist,
     addRecentPlaylist,
   } = useContext(PlaylistContext);
-
+  console.log(playlist);
   return (
     <Card
       sx={{
-        // maxWidth: 345,
         height: {
-          // xs: 450,
           sm: 440,
           md: 440,
           lg: 420,
@@ -50,6 +48,9 @@ const PlaylistCard = ({
         <CardMedia
           component="img"
           height="180"
+          sx={{
+            objectFit: "cover",
+          }}
           image={playlist?.playlistThumbnail.url}
           alt={playlist?.playlistTitle}
         />

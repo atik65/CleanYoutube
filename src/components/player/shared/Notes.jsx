@@ -1,6 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PlaylistContext } from "../../../context/PlaylistContext";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  TextareaAutosize,
+  Typography,
+} from "@mui/material";
+import Textarea from "@mui/joy/Textarea";
 
 const Notes = ({ videoId }) => {
   const { addNote, getNote } = useContext(PlaylistContext);
@@ -12,25 +19,54 @@ const Notes = ({ videoId }) => {
     setNote("");
   };
 
+  useEffect(() => {
+    if (getNote(videoId)) setNote(getNote(videoId));
+    else setNote("");
+  }, [videoId]);
+
   return (
     <Box
       sx={{
+        mt: "0.5rem",
         mb: {
-          xs: "5rem",
-          md: "0",
+          xs: "1rem",
+          md: "2rem",
         },
       }}
     >
-      <h2>Notes</h2>
-      <p> {getNote(videoId)} </p>
+      <Typography variant="h6">Notes</Typography>
+      <Typography
+        variant="body1"
+        sx={{
+          mb: "1rem",
+          textAlign: "justify",
+        }}
+      >
+        {getNote(videoId)}
+      </Typography>
+
       <form onSubmit={handleSubmit}>
-        <input
+        <Textarea
+          required
+          color="primary"
+          placeholder="Add note"
+          minRows={3}
+          size="lg"
+          variant="soft"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          type="text"
-          placeholder="Add note"
         />
-        <button type="submit">Add Note</button>
+
+        <Button
+          fullWidth
+          sx={{
+            mt: "0.5rem",
+          }}
+          variant="contained"
+          type="submit"
+        >
+          {getNote(videoId) ? "Update " : "Add "} Note
+        </Button>
       </form>
     </Box>
   );

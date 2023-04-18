@@ -29,19 +29,19 @@ const getPlaylist = async (playListId) => {
   } = data?.items[0]?.snippet;
 
   let result = await getPlaylistItem(playListId);
-
+  console.log(result);
   result = result.map((item) => {
     const {
       title,
       description,
 
-      thumbnails: { medium },
+      thumbnails: { standard },
     } = item.snippet;
 
     return {
       title,
       description,
-      thumbnail: medium,
+      thumbnail: standard,
       contentDetails: item.contentDetails,
     };
   });
@@ -51,7 +51,7 @@ const getPlaylist = async (playListId) => {
     channelTitle,
     playlistDescription,
     playlistTitle,
-    playlistThumbnail: thumbnails.default,
+    playlistThumbnail: thumbnails.standard,
     items: [...result],
     playlistId: playListId,
   };
