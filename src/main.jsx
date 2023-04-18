@@ -12,6 +12,8 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import CssBaseline from "@mui/material/CssBaseline";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <PlaylistContextProvider>
       <CssBaseline />
+      <ToastContainer />
       <RouterProvider router={router} />
     </PlaylistContextProvider>
   </React.StrictMode>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPlaylist } from "../api";
 import { getFromLocalStorage, setToLocalStorage } from "../utils";
-
+import { ToastContainer, toast } from "react-toastify";
 // const demoPlayListID = "PL_XxuZqN0xVD0op-QDEgyXFA4fRPChvkl";
 const demoPlayListID = "PLaBWg5TZtBgCvvsit84tTO-dZlrcWNidi";
 
@@ -26,39 +26,14 @@ const usePlayList = () => {
       return;
     }
 
-    let channelID, channelTITLE;
-
     let playlist = await getPlaylist(playlistId);
-
-    playlist = playlist.map((item) => {
-      const {
-        title,
-        description,
-        channelId,
-        channelTitle,
-        thumbnails: { medium },
-      } = item.snippet;
-
-      if (!channelID) channelID = channelId;
-      if (!channelTITLE) channelTITLE = channelTitle;
-
-      return {
-        title,
-        description,
-        thumbnail: medium,
-        contentDetails: item.contentDetails,
-      };
-    });
 
     setState({
       ...state,
       playlists: {
         ...state.playlists,
         [playlistId]: {
-          items: playlist,
-          channelId: channelID,
-          channelTitle: channelTITLE,
-          playlistId,
+          ...playlist,
         },
       },
     });
@@ -68,10 +43,7 @@ const usePlayList = () => {
       playlists: {
         ...state.playlists,
         [playlistId]: {
-          items: playlist,
-          channelId: channelID,
-          channelTitle: channelTITLE,
-          playlistId,
+          ...playlist,
         },
       },
     });
@@ -91,6 +63,16 @@ const usePlayList = () => {
     setToLocalStorage("playlists", {
       ...state,
       recentPlaylists: [...state.recentPlaylists, playlistId],
+    });
+
+    toast.info("Added to recent playlist", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
 
@@ -114,6 +96,15 @@ const usePlayList = () => {
         ...state.recentPlaylists.filter((id) => id != playlistId),
       ],
     });
+    toast.dark("Removed from recent playlist", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const addFavoritePlaylist = (playlistId) => {
@@ -131,6 +122,15 @@ const usePlayList = () => {
     setToLocalStorage("playlists", {
       ...state,
       favoritePlayList: [...state.favoritePlayList, playlistId],
+    });
+    toast.info("Added to favorite playlist", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
 
@@ -153,6 +153,16 @@ const usePlayList = () => {
       favoritePlayList: [
         ...state.favoritePlayList.filter((id) => id != playlistId),
       ],
+    });
+
+    toast.dark("Removed from favorite playlist", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
 

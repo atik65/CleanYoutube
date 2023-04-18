@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import PlayerMainContent from "../components/player/playerMainContent/PlayerMainContent";
 import PlayerSidebar from "../components/player/playerSidebar/PlayerSidebar";
-
 import { PlaylistContext } from "../context/PlaylistContext";
-
 import { useParams } from "react-router-dom";
 
 const Player = () => {

@@ -1,7 +1,17 @@
 import React, { useContext } from "react";
 import Player from "../../pages/Player";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { PlaylistContext } from "../../context/PlaylistContext";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Box, Button, CardActionArea, CardActions } from "@mui/material";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const PlaylistCard = ({
   playlist,
@@ -14,88 +24,167 @@ const PlaylistCard = ({
     addFavoritePlaylist,
     addRecentPlaylist,
   } = useContext(PlaylistContext);
+
   return (
-    <div>
-      <h2
-        style={{
-          paddingLeft: "1rem",
-          marginTop: "1rem",
-          marginBottom: "0.8rem",
-        }}
-      >
-        Channel Title: {playlist.channelTitle}
-      </h2>
-      {!favPlaylist && !recentPlaylist && (
-        <button
-          onClick={() => addFavoritePlaylist(playlist.playlistId)}
-          style={{
-            padding: "5px",
-            marginRight: "10px",
-            cursor: "pointer",
-            marginBottom: "10px",
-            marginLeft: "10px",
-          }}
-        >
-          Add to favorite playlist
-        </button>
-      )}
+    <Card
+      sx={{
+        // maxWidth: 345,
+        height: {
+          // xs: 450,
+          sm: 440,
+          md: 440,
+          lg: 420,
+          xl: 420,
+        },
 
-      {favPlaylist && (
-        <button
-          onClick={() => removeFavoritePlaylist(playlist.playlistId)}
-          style={{
-            padding: "5px",
-            marginRight: "10px",
-            cursor: "pointer",
-            marginBottom: "10px",
-            marginLeft: "10px",
-          }}
-        >
-          Remove from favorite playlist
-        </button>
-      )}
-
-      <br />
-      {!recentPlaylist && !favPlaylist && (
-        <button
-          onClick={() => addRecentPlaylist(playlist.playlistId)}
-          style={{
-            padding: "5px",
-            marginRight: "10px",
-            cursor: "pointer",
-            marginBottom: "10px",
-            marginLeft: "10px",
-          }}
-        >
-          Add to recent playlist
-        </button>
-      )}
-      {recentPlaylist && (
-        <button
-          onClick={() => removeRecentPlaylist(playlist.playlistId)}
-          style={{
-            padding: "5px",
-            marginRight: "10px",
-            cursor: "pointer",
-            marginBottom: "10px",
-            marginLeft: "10px",
-          }}
-        >
-          Remove from recent playlist
-        </button>
-      )}
-      <br />
-      <Link
-        style={{
-          fontSize: "1.5rem",
-          color: "black",
-        }}
+        pb: "0.2rem",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <CardActionArea
+        component={RouterLink}
         to={`/playlist/${playlist.playlistId}`}
       >
-        {" "}
-        Explore Playlist{" "}
-      </Link>
-    </div>
+        <CardMedia
+          component="img"
+          height="180"
+          image={playlist?.playlistThumbnail.url}
+          alt={playlist?.playlistTitle}
+        />
+        <CardContent sx={{ py: "0.5rem" }}>
+          <Typography gutterBottom variant="body1" color="text.secondary">
+            {playlist?.channelTitle}
+          </Typography>
+          <Typography gutterBottom variant="h6">
+            {playlist?.playlistTitle.length > 30
+              ? playlist.playlistTitle.slice(0, 30) + "..."
+              : playlist.playlistTitle}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {playlist?.playlistDescription.length > 100
+              ? playlist.playlistDescription.slice(0, 100) + "..."
+              : playlist.playlistDescription}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+
+      <Box
+        sx={{
+          mt: {
+            xs: "0.5rem",
+            sm: 0,
+          },
+        }}
+      >
+        <CardActions
+          sx={{
+            justifyContent: "space-between",
+            py: 0,
+          }}
+        >
+          {favPlaylist && (
+            <Button
+              fullWidth
+              onClick={() => removeFavoritePlaylist(playlist.playlistId)}
+              sx={{
+                alignItems: "center",
+              }}
+              size="small"
+              color="primary"
+              variant="outlined"
+            >
+              <DeleteOutlineIcon
+                sx={{
+                  marginRight: "0.3rem",
+                }}
+              />
+              Remove from favorite playlist
+            </Button>
+          )}
+
+          {recentPlaylist && (
+            <Button
+              fullWidth
+              onClick={() => removeRecentPlaylist(playlist.playlistId)}
+              sx={{
+                alignItems: "center",
+              }}
+              size="small"
+              color="primary"
+              variant="outlined"
+            >
+              <DeleteOutlineIcon
+                sx={{
+                  marginRight: "0.3rem",
+                }}
+              />
+              Remove from recent playlist
+            </Button>
+          )}
+
+          {!favPlaylist && !recentPlaylist && (
+            <Button
+              onClick={() => addFavoritePlaylist(playlist.playlistId)}
+              sx={{
+                alignItems: "center",
+              }}
+              size="small"
+              color="primary"
+              variant="outlined"
+            >
+              <AddCircleOutlineIcon
+                sx={{
+                  marginRight: "0.3rem",
+                }}
+              />
+              Favorite
+            </Button>
+          )}
+
+          {!recentPlaylist && !favPlaylist && (
+            <Button
+              onClick={() => addRecentPlaylist(playlist.playlistId)}
+              sx={{
+                alignItems: "center",
+              }}
+              size="small"
+              color="primary"
+              variant="outlined"
+            >
+              <AddCircleOutlineIcon
+                sx={{
+                  marginRight: "0.3rem",
+                }}
+              />
+              Recent
+            </Button>
+          )}
+        </CardActions>
+
+        <CardActions sx={{ mt: "0.1rem" }}>
+          <Button
+            component={RouterLink}
+            to={`/playlist/${playlist.playlistId}`}
+            fullWidth
+            sx={{
+              alignItems: "center",
+            }}
+            size="small"
+            color="primary"
+            variant="contained"
+          >
+            <PlayCircleOutlineIcon
+              sx={{
+                marginRight: "0.3rem",
+              }}
+            />
+            Visit playlist
+          </Button>
+        </CardActions>
+      </Box>
+    </Card>
   );
 };
 

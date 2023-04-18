@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
 import AddPlaylistDialog from "../addPlaylist-dialog/AddPlaylistDialog";
 
 const Navbar = () => {
@@ -73,6 +73,11 @@ const Navbar = () => {
               md={10}
             >
               <Button onClick={handleClickOpen} variant="contained">
+                <PlaylistAddRoundedIcon
+                  sx={{
+                    mr: 1,
+                  }}
+                />{" "}
                 Add Playlist
               </Button>
 
