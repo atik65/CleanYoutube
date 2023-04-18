@@ -40,7 +40,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <PlaylistContextProvider>
       <CssBaseline />
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <RouterProvider router={router} />
     </PlaylistContextProvider>
   </React.StrictMode>
